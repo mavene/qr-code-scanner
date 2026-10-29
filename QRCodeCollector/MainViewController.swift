@@ -15,6 +15,10 @@ class ViewController: UIViewController {
 
     private var style: LayoutStyle = .grid
     private var codes = QRCodeStore.shared.load()
+    
+    
+    private lazy var scanHandler = CameraScanHandler(presentingViewController: self)
+
 
     private let sideInset: CGFloat = 16
     private let spacing: CGFloat = 16
@@ -31,6 +35,9 @@ class ViewController: UIViewController {
     }()
 
     override func viewDidLoad() {
+        
+        scanHandler.delegate = self
+
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
 
@@ -75,7 +82,7 @@ class ViewController: UIViewController {
     }
 
     @objc private func scanTapped() {
-        print("Add QR! Wait to link to Jerin")
+        scanHandler.launchCamera()
     }
 }
 
@@ -124,7 +131,22 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
 }
 
 
+extension ViewController: CameraScanHandlerDelegate {
+    func didCaptureQRCode(urlString: String) {
+        // Pass the urlString along with the current timestamp (Date.now)
+        let newCode = QRCode(imageURL: urlString, dateScanned: Date.now)
+        
+        // Add to active local code tracking list array
+        self.codes.append(newCode)
+        
+        // Refresh collection layout view instantly
+        self.collectionView.reloadData()
+    }
+}
+
+
 #Preview {
     UINavigationController(rootViewController: ViewController())
 }
+
 
