@@ -49,8 +49,6 @@ final class QRCodeCell: UICollectionViewCell {
     func configure(with code: QRCode, style: LayoutStyle) {
         imageView.image = UIImage(systemName: "qrcode")
         urlLabel.text = code.imageURL
-//        urlLabel.isHidden = false
         dateLabel.text = UIHelper.formatDateTime(code.dateScanned)
-//        dateLabel.isHidden = false
     }
 }
