@@ -64,8 +64,8 @@ class QRCodeStore {
     private func seedIfNeeded() {
         guard !UserDefaults.standard.bool(forKey: seededKey) else { return }
         let seeds = [
-            QRCode(assetName: "testqr1"),
-            QRCode(assetName: "testqr2")
+            QRCode(imageURL: "www.google.com", dateScanned: Date.now),
+            QRCode(imageURL: "www.foodpanda.sg", dateScanned: Date.now)
         ].compactMap { $0 }
         save(seeds)
         UserDefaults.standard.set(true, forKey: seededKey)

@@ -10,7 +10,7 @@ import CoreImage.CIFilterBuiltins
 
 class DetailViewController: UIViewController {
 
-    private let qrContent: String
+    private let qrContent: QRCode
     
     // Storage for the date/time placeholder strings
     private let placeholderDateString: String
@@ -61,7 +61,7 @@ class DetailViewController: UIViewController {
         return label
     }()
     
-    init(qrContent: String, dateString: String = "2026-10-29", timeString: String = "10:30 AM") {
+    init(qrContent: QRCode, dateString: String = "2026-10-29", timeString: String = "10:30 AM") {
         self.qrContent = qrContent
         self.placeholderDateString = dateString
         self.placeholderTimeString = timeString
@@ -123,14 +123,13 @@ class DetailViewController: UIViewController {
     }
     
     private func displayQRCode() {
-        contentLabel.text = qrContent
+        contentLabel.text = qrContent.imageURL
         
         historyLabel.text = "Scanned: \(placeholderDateString), \(placeholderTimeString)"
                 
-        
         let context = CIContext()
         let filter = CIFilter.qrCodeGenerator()
-        filter.message = Data(qrContent.utf8)
+        filter.message = Data(qrContent.imageURL.utf8)
         
         if let outputImage = filter.outputImage {
             let transform = CGAffineTransform(scaleX: 10, y: 10)
@@ -145,5 +144,5 @@ class DetailViewController: UIViewController {
 
 
 #Preview {
-    DetailViewController(qrContent: "www.google.com")
+    DetailViewController(qrContent: QRCode(imageURL: "www.google.com", dateScanned: Date.now))
 }

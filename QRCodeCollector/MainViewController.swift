@@ -12,8 +12,6 @@ enum LayoutStyle {
 }
 
 class ViewController: UIViewController {
-    
-    private let mockQRCodeData = "https://google.com"
 
     private var style: LayoutStyle = .grid
     private var codes = QRCodeStore.shared.load()
@@ -110,16 +108,18 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
 
     func collectionView(_ cv: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedCode = codes[indexPath.item]
+        
         // Instantiate your separate detail view controller file
-               let detailVC = DetailViewController(qrContent: mockQRCodeData)
-               let navController = UINavigationController(rootViewController: detailVC)
-               
-               if let sheet = navController.sheetPresentationController {
-                   sheet.detents = [.medium(), .large()]
-                   sheet.prefersGrabberVisible = true
-               }
-               
-               present(navController, animated: true, completion: nil)
+        let detailVC = DetailViewController(qrContent: selectedCode)
+       let navController = UINavigationController(rootViewController: detailVC)
+       
+       if let sheet = navController.sheetPresentationController {
+           sheet.detents = [.medium(), .large()]
+           sheet.prefersGrabberVisible = true
+       }
+       
+       present(navController, animated: true, completion: nil)
     }
 }
 

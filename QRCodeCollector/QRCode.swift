@@ -45,26 +45,16 @@ import UIKit
 //    }
 //}
 
+import UIKit
+
 struct QRCode: Codable {
     let id: UUID
     var imageURL: String
     var dateScanned: Date
-    
-    // TODO: Remove after using Jerin's QR Code Generator
-    let imageData: Data
-    var image: UIImage? { UIImage(data: imageData) }
 
-    init?(assetName: String) {
-        guard let png = UIImage(named: assetName)?.pngData() else { return nil }
+    init(imageURL: String, dateScanned: Date) {
         self.id = UUID()
-        self.imageURL = "/whatever/placeholderURL\(id)"
-        self.dateScanned = Date.now // TODO: Placeholder for now
-        self.imageData = png
-    }
-    
-    // Create a new init that only has the scan URL
-
-    func generateQRCodeDisplay() {
-        // TODO: Put Jerin's QR Code Generator here and stop storing the image data (just generate it when necessary)
+        self.imageURL = imageURL
+        self.dateScanned = dateScanned
     }
 }
