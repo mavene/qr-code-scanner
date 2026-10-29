@@ -10,7 +10,6 @@ import CoreImage.CIFilterBuiltins
 
 class DetailViewController: UIViewController {
 
-        
     private let qrContent: String
     
     // Storage for the date/time placeholder strings

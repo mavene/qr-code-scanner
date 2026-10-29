@@ -12,6 +12,8 @@ enum LayoutStyle {
 }
 
 class ViewController: UIViewController {
+    
+    private let mockQRCodeData = "https://google.com"
 
     private var style: LayoutStyle = .grid
     private var codes = QRCodeStore.shared.load()
@@ -108,7 +110,16 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
 
     func collectionView(_ cv: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Pull up the modal sheet by Jerin to view details")
+        // Instantiate your separate detail view controller file
+               let detailVC = DetailViewController(qrContent: mockQRCodeData)
+               let navController = UINavigationController(rootViewController: detailVC)
+               
+               if let sheet = navController.sheetPresentationController {
+                   sheet.detents = [.medium(), .large()]
+                   sheet.prefersGrabberVisible = true
+               }
+               
+               present(navController, animated: true, completion: nil)
     }
 }
 
