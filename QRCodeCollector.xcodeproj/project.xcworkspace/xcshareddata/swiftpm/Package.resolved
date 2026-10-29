@@ -1,0 +1,15 @@
+{
+  "originHash" : "387e528d47adc32b457c03eacaea23e6bd8338827200d04eee2d746b440c47a7",
+  "pins" : [
+    {
+      "identity" : "qrscanner",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mercari/QRScanner",
+      "state" : {
+        "revision" : "f5f98ce30e642226cf281b281a7825f7beae3402",
+        "version" : "2.0.1"
+      }
+    }
+  ],
+  "version" : 3
+}
