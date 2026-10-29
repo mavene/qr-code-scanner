@@ -47,6 +47,12 @@ final class QRCodeCell: UICollectionViewCell {
     required init?(coder: NSCoder) { fatalError() }
 
     func configure(with code: QRCode, style: LayoutStyle) {
+        switch style {
+        case .grid:
+            stack.axis = .vertical
+        case .list:
+            stack.axis = .horizontal
+        }
         imageView.image = UIImage(systemName: "qrcode")
         urlLabel.text = code.imageURL
         dateLabel.text = UIHelper.formatDateTime(code.dateScanned)

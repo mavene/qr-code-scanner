@@ -16,9 +16,7 @@ class ViewController: UIViewController {
     private var style: LayoutStyle = .grid
     private var codes = QRCodeStore.shared.load()
     
-    
     private lazy var scanHandler = CameraScanHandler(presentingViewController: self)
-
 
     private let sideInset: CGFloat = 16
     private let spacing: CGFloat = 16
@@ -141,6 +139,9 @@ extension ViewController: CameraScanHandlerDelegate {
         
         // Refresh collection layout view instantly
         self.collectionView.reloadData()
+        
+        // Add to codes in store
+        QRCodeStore.shared.save(codes)
     }
 }
 
