@@ -15,7 +15,7 @@ struct UIHelper {
         return formatter
     }()
     
-    // convert to "dd/mm/yyyy, hh:mm" 
+    // convert to "dd/mm/yyyy, hh:mm"
     static func formatDateTime(_ date: Date) -> String {
         return standardDateFormatter.string(from: date)
     }

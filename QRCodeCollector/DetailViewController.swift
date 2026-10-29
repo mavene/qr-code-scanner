@@ -12,10 +12,6 @@ class DetailViewController: UIViewController {
 
     private let qrContent: QRCode
     
-    // Storage for the date/time placeholder strings
-    private let placeholderDateString: String
-    private let placeholderTimeString: String
-    
     private let qrImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,14 +57,11 @@ class DetailViewController: UIViewController {
         return label
     }()
     
-    init(qrContent: QRCode, dateString: String = "2026-10-29", timeString: String = "10:30 AM") {
+    init(qrContent: QRCode) {
         self.qrContent = qrContent
-        self.placeholderDateString = dateString
-        self.placeholderTimeString = timeString
         super.init(nibName: nil, bundle: nil)
     }
-    
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -125,7 +118,8 @@ class DetailViewController: UIViewController {
     private func displayQRCode() {
         contentLabel.text = qrContent.imageURL
         
-        historyLabel.text = "Scanned: \(placeholderDateString), \(placeholderTimeString)"
+        let dateScannedFormatted = UIHelper.formatDateTime(qrContent.dateScanned)
+        historyLabel.text = "Scanned: \(dateScannedFormatted)"
                 
         let context = CIContext()
         let filter = CIFilter.qrCodeGenerator()
